@@ -30,3 +30,17 @@ docker container run -p 80:80 --name webhost -d nginx
 2. started new container from that image
 3. Opened port 80 on host IP
 4. Routes that traffic to the container IP, port 80
+
+## Container are not Mini-VMs
+
+- They are just processes. They are not tied to the host OS, they are isolated processes.
+- Limited to what resources they can access
+- Exit when the process stops unless `--rm` flag is used
+
+## Homework
+
+- docs.docker.com and `--help` are your friend
+- Run an nginx, a mysql, and a httpd (apache) server
+- Run all of `--detach` or `-d`, name them all with `--name`
+- nginx should listen on `80:80`, httpd on `8080:80`, mysql on `3312:3306`
+- When running mysql, use the `--env` option to pass in `MYSQL_RANDOM_ROOT_PASSWORD=yes`
