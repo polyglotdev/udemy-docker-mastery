@@ -56,3 +56,21 @@ docker container run -p 80:80 --name webhost -d nginx
 - `docker container run -it`: start new container interactively
 - `docker container exec -it`: run additional command in existing container
 - Different Linux distros have different commands to get a shell in a container
+  - Some use `sh`, some use `bash`
+
+## Docker Networks: Concepts
+
+- Each container connected to a private virtual network "bridge"
+- Each virtual network routes through NAT firewall on host IP
+- All containers on a virtual network can talk to each other without `-p`
+- Best practice is to create a new virtual network for each app
+- Battery included, but removable
+- `docker container run --network <network_name>`: attach a container to a virtual network
+- `docker network ls`: show networks
+- `docker network inspect <network_name>`: show details of that network
+- `docker network create --driver`: create a new virtual network
+- `docker network connect`: attach a network to a container
+- `docker network disconnect`: detach a network from a container
+- `--network-alias`: add an alias to a container's hostname
+- `--link`: legacy way to connect containers
+- `Docker0`: default virtual network
