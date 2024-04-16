@@ -23,5 +23,10 @@
 ## Starting an Nginx Container
 
 ```bash
-docker container run -p 80:80 --detach --name webhost nginx
+docker container run -p 80:80 --name webhost -d nginx
 ```
+
+1. Downloaded image nginx from DH
+2. started new container from that image
+3. Opened port 80 on host IP
+4. Routes that traffic to the container IP, port 80
