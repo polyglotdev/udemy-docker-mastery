@@ -74,3 +74,14 @@ docker container run -p 80:80 --name webhost -d nginx
 - `--network-alias`: add an alias to a container's hostname
 - `--link`: legacy way to connect containers
 - `Docker0`: default virtual network
+
+## Docker Networks: CLI Management
+
+- `docker network ls`: show networks
+- `docker network inspect <network_name>`: show details of that network
+- `docker network create --driver`: create a new virtual network
+- `docker network connect`: attach a network to a container
+- `docker network disconnect`: detach a network from a container
+- `--network-alias`: add an alias to a container's hostname
+- `--link`: legacy way to connect containers
+- `Docker0`: default virtual network
