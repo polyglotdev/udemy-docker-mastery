@@ -44,3 +44,9 @@ docker container run -p 80:80 --name webhost -d nginx
 - Run all of `--detach` or `-d`, name them all with `--name`
 - nginx should listen on `80:80`, httpd on `8080:80`, mysql on `3312:3306`
 - When running mysql, use the `--env` option to pass in `MYSQL_RANDOM_ROOT_PASSWORD=yes`
+
+## Whats going on in Containers
+
+- `docker container top <container_id>`: process list in one container
+- `docker container inspect <container_id>`: details of one container config
+- `docker container stats <container_id>`: performance stats for all containers
