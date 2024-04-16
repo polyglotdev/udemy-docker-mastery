@@ -50,3 +50,9 @@ docker container run -p 80:80 --name webhost -d nginx
 - `docker container top <container_id>`: process list in one container
 - `docker container inspect <container_id>`: details of one container config
 - `docker container stats <container_id>`: performance stats for all containers
+
+## Getting a shell inside containers
+
+- `docker container run -it`: start new container interactively
+- `docker container exec -it`: run additional command in existing container
+- Different Linux distros have different commands to get a shell in a container
