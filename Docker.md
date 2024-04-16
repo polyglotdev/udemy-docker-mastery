@@ -85,3 +85,15 @@ docker container run -p 80:80 --name webhost -d nginx
 - `--network-alias`: add an alias to a container's hostname
 - `--link`: legacy way to connect containers
 - `Docker0`: default virtual network
+
+## Docker Networks: DNS
+
+- Understand how DNS is the key to easy inter-container comms
+- See how it works by default with custom networks
+- Learn how to use `--link` to enable DNS round robin style discovery
+
+### Forget IPs, use DNS
+
+- Containers should use FQDN (Fully Qualified Domain Name) to talk to each other
+- Its too dynamic to try and manage IPs for containers
+- Docker daemon has a built-in DNS server for containers on the same network
