@@ -303,3 +303,19 @@ If you need to specify a driver on your volume you can create it ahead of time i
       4. volumes: optional
 3. Networks
 4. Volumes
+
+```yml
+version: "3"
+
+services:
+  servicename:
+    image: imagename
+    ports:
+      - "80:80"
+    environment:
+      - key: value
+    volumes:
+      - volumename:/path/in/container
+    networks:
+      - networkname
+```
