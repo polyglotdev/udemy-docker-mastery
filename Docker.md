@@ -252,7 +252,8 @@ A common pitfall in using Docker tags is over-reliance on the `latest` tag. Sinc
 
 ## Persistent Data: Volumes Walkthrough
 
-- `docker container run -d --name psql -e POSTGRES_PASSWORD=pass123 postgres`
+- `docker container run -d --name psql -e POSTGRES_HOST_AUTH_METHOD=trust postgres`
+- `docker container run -d --name psql -e POSTGRES_PASSWORD=mypasswd postgres`
 - `docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -p 3308:3306 -v mysql-db:/var/lib/mysql mysql`
 - `docker inspect mysql | jq '.[].Mounts'`
 
