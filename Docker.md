@@ -239,3 +239,8 @@ A common pitfall in using Docker tags is over-reliance on the `latest` tag. Sinc
 - persistent data: databases, files, etc
 - Bind mounts
 - Assignments
+
+## Container Lifetime & Persistent Data: Volumes
+
+- Containers are usually immutable and ephemeral
+- "immutable infrastructure": only re-deploy containers, never change
