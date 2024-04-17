@@ -253,7 +253,7 @@ A common pitfall in using Docker tags is over-reliance on the `latest` tag. Sinc
 ## Persistent Data: Volumes Walkthrough
 
 - `docker container run -d --name psql -e POSTGRES_HOST_AUTH_METHOD=trust postgres`
-- `docker container run -d --name psql -e POSTGRES_PASSWORD=mypasswd postgres`
+- `docker run -d --name my-postgres -e POSTGRES_PASSWORD=passwrd -v psql-data:/var/lib/postgresql/data -p 5432:5432 postgres`
 - `docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -p 3308:3306 -v mysql-db:/var/lib/mysql mysql`
 - `docker inspect mysql | jq '.[].Mounts'`
 
@@ -268,3 +268,8 @@ If you need to specify a driver on your volume you can create it ahead of time i
 - Again, skips UFS, and host files overwrite any in container
 - Can't use in Dockerfile, must be at `container run`
 - `...run -v /Users/dom//stuff:/path/to/container`
+
+## Assignment: Named Volumes
+
+- Database upgrade with containers
+- create a `postgres`(v: 9.6.1) container with named volume `psql-data` volume
