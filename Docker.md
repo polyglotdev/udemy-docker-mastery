@@ -341,8 +341,24 @@ services:
 
 ## Swarm Mode: Built-In Orchestration
 
+Join:
+
+```bash
+docker swarm join --token SWMTKN-1-3dq7w2u5ij8agdean54br3olh5lrbx6uxsrdiaqc2ew5u74wxs-9wq1khvzyi7a3wf0elc0jrlbq 192.168.65.3:2377
+```
+
 - Swarm Mode is clustering solution built inside Docker
 - Not related to Swarm "classic" for pre-1.12 versions
 - Added in 1.12, 2016 via SwarmKit toolkit
 - Enhanced in 1.13, 2017 via Stacks and Secrets
--
+
+## docker swarm init: What just happened?
+
+- Lots of PKI and security automation
+  - Root Signing Certificate created for our Swarm
+  - Certificate is issued for first Manager node
+  - Join tokens are created
+- Raft database created to store root CA, configs, and secrets
+  - Encrypted by default on disk (1.13+)
+  - No Need for another keu/value system to hold orchestration state/secrets
+  - Replicates logs amongst Managers via mutual TLS in "control plane"
