@@ -157,3 +157,10 @@ docker run --rm --network elasticsearch alpine nslookup search
 - Not complete OS. No kernel, kernel modules (e.g. drivers): The host provides the kernel, and modules, and the container runs on that kernel
 - Small as one file like golang static binary
 - Big as Ubuntu distro with apt, apache, php, and more installed
+
+## Image Layers
+
+- Images are made up of file system changes and metadata
+- union file system (UFS) is a way to layer files
+- history and inspect commands
+- copy on write
