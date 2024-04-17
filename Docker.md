@@ -255,3 +255,15 @@ A common pitfall in using Docker tags is over-reliance on the `latest` tag. Sinc
 - `docker container run -d --name psql -e POSTGRES_PASSWORD=pass123 postgres`
 - `docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -p 3308:3306 -v mysql-db:/var/lib/mysql mysql`
 - `docker inspect mysql | jq '.[].Mounts'`
+
+## Create a volume
+
+If you need to specify a driver on your volume you can create it ahead of time instead of the run command creating it for you.
+
+## Persistent Data: Bind Mounts
+
+- Maps a host file or directory to a container file or directory
+- Basically just two locations pointing to the same file(s)
+- Again, skips UFS, and host files overwrite any in container
+- Can't use in Dockerfile, must be at `container run`
+- `...run -v /Users/dom//stuff:/path/to/container`
