@@ -164,3 +164,70 @@ docker run --rm --network elasticsearch alpine nslookup search
 - union file system (UFS) is a way to layer files
 - history and inspect commands
 - copy on write
+
+## Docker tags
+
+In Docker, a **tag** is a label applied to an image in a Docker registry that distinguishes different images or different versions of the same image. Tags are used to specify different versions of an image that are available, such as different versions of an operating system, different versions of a software application, or different builds of an application configured for specific purposes.
+
+### Understanding Docker Tags
+
+1. Basic Usage
+
+A Docker image tag provides a convenient way to reference different versions of the same image. For example, if you have a series of images for the `ubuntu` operating system, you might have tags for each version:
+
+- `ubuntu:18.04`
+- `ubuntu:20.04`
+- `ubuntu:latest`
+
+In this example, `18.04` and `20.04` are specific versions of Ubuntu, while `latest` typically refers to the most recent stable version.
+
+1. Components of a Tag
+
+A Docker tag usually includes the image's repository name, followed by a colon, and the tag itself. For example:
+
+```bash
+nginx:latest
+```
+
+- **Repository Name**: `nginx`
+- **Tag**: `latest`
+
+3. Purpose and Best Practices
+
+- **Version Control**: Tags can be used to manage different versions of applications. It is a common practice to use semantic versioning tags (like `2.5.1`, `2.5.2`, etc.) for production deployments to ensure environment consistency.
+- **Environment Specific Tags**: Tags can also indicate configurations specific to environments, such as `development`, `testing`, and `production`, which may have different application settings or dependencies.
+- **Builds or Revisions**: In CI/CD pipelines, tags might include build numbers or other identifiers that link the Docker image to a specific build in a build system.
+
+### Example: Tagging an Image
+
+When you build a Docker image, you can specify a tag with the `docker build` command:
+
+```bash
+docker build -t myapp:1.0 .
+```
+
+Here, `myapp` is the repository name, and `1.0` is the tag. Without a specified tag, Docker will default to using the `latest` tag.
+
+### Pushing and Pulling with Tags
+
+**Pushing an Image:**
+
+To push an image to a Docker registry, you specify the tag:
+
+```bash
+docker push myapp:1.0
+```
+
+**Pulling an Image:**
+
+To pull a specific version of an image from a Docker registry:
+
+```bash
+docker pull myapp:1.0
+```
+
+If no tag is specified during pull, Docker defaults to `latest`, which can lead to confusion if you expect the `latest` tag to be up-to-date with the most recent version of the image source code (it only refers to the "latest pushed" version).
+
+### Tags and the Latest Pitfall
+
+A common pitfall in using Docker tags is over-reliance on the `latest` tag. Since `latest` can refer to whatever was last pushed to the "latest" tag in the repository, it may not actually represent the most current version of the application. It's considered best practice in production environments to use specific, versioned tags to avoid unexpected changes.
