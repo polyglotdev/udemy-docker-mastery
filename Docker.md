@@ -104,3 +104,37 @@ docker container run -p 80:80 --name webhost -d nginx
 - ensure curl is installed on latest version for that distro
 - `docker run --rm -it ubuntu bash -c "apt-get update && apt-get install -y curl && curl --version"`
 - `docker run --rm -it centos:7 /bin/bash -c "yum update -y && yum install -y curl && curl --version"`
+
+## What is DNS?
+
+DNS(Domain Name System) is a system that translates domain names to IP addresses. It is a distributed database implemented in a hierarchy of name servers. Here is what happens when you use DNS
+
+1. Lookup Request: Your device asks a DNS server for the IP address associated with a particular domain name.
+2. Response: The DNS server responds with the corresponding IP address.
+
+DNS is often described as the "phone book of the internet." Without it, we would have to remember IP addresses instead of domain names.
+
+## DNS and Docker
+
+n Docker, DNS is crucial for service discovery and the management of containers, especially when dealing with multi-container setups and orchestration tools like Docker Swarm or Kubernetes. Here’s how DNS ties into Docker:
+
+- Container Networking: Docker uses DNS to manage container networking. When you create a new container, Docker automatically assigns it a unique IP address and a DNS name.
+- Service Discovery: DNS is used to discover services running in other containers. Containers can communicate with each other using their DNS names.
+
+## Assignment: DNS Round Robin Test
+
+- Create a new virtual network
+- Create two containers from `elasticsearch:2`
+- Research and use `--network-alias search` when creating them to give them an additional DNS name to respond to
+- Run `alpine nslookup search` with `--net` to see the two containers list for the same DNS name
+- Run `centos curl -s search:9200` with `--net` multiple times until you see both containers respond
+- Extra Credit: Run a single `centos` container and use `--net` to run `curl` against the `search` alias in a loop, see it hit both containers
+
+## Commands from DNS Round Robin Test
+
+```bash
+docker network create elasticsearch
+docker run -d --network elasticsearch --name elasticsearch1 --network-alias search elasticsearch
+docker run -d --network elasticsearch --name elasticsearch2 --network-alias search elasticsearch
+docker run --rm --network elasticsearch alpine nslookup search
+```
