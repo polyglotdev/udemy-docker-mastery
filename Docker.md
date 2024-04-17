@@ -322,3 +322,9 @@ services:
 
 - docker-compose is not a production-grade tool, but it is great for development and testing.
 - comes with most installs besides linux
+
+## Using Compose to Build
+
+- compose can build your custom images
+- `docker-compose up --build` will build the images before starting the containers if not found in the cache
+- Great for complex builds that have lots of vars or build args
