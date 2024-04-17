@@ -253,7 +253,7 @@ A common pitfall in using Docker tags is over-reliance on the `latest` tag. Sinc
 ## Persistent Data: Volumes Walkthrough
 
 - `docker container run -d --name psql -e POSTGRES_HOST_AUTH_METHOD=trust postgres`
-- `docker run -d --name my-postgres -e POSTGRES_PASSWORD=passwrd -v psql-data:/var/lib/postgresql/data -p 5432:5432 postgres`
+- `docker run -d --name my-postgres -e POSTGRES_PASSWORD=passwrd -v psql-data:/var/lib/postgresql/data -p 5433:5432 postgres`
 - `docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -p 3308:3306 -v mysql-db:/var/lib/mysql mysql`
 - `docker inspect mysql | jq '.[].Mounts'`
 
@@ -273,3 +273,21 @@ If you need to specify a driver on your volume you can create it ahead of time i
 
 - Database upgrade with containers
 - create a `postgres`(v: 9.6.1) container with named volume `psql-data` volume
+
+## Docker Compose
+
+- Why: configure relationships between containers
+- Why: save our `docker container run` settings in easy-to-read file
+- Why: create one-liner developer environment startups
+- Comprised of 2 separate but related things:
+  - YAML-formatted file that describes our solution options for:
+    - containers
+    - networks
+    - volumes
+  - A CLI tool `docker-compose` used for local dev/test automation with those YAML files
+
+## `docker-compose.yml` file
+
+- Compose YAML format as it's own versions
+- `docker-compose.yml` file is a YAML file that defines how Docker containers should behave in production
+- With docker directly in prod with Swarm
