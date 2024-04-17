@@ -1,6 +1,5 @@
 FROM nginx:alpine3.18
 
-
 # Healthcheck to ensure the service is running
 HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
   CMD curl -f http://localhost:5000/health || exit 1
@@ -9,6 +8,7 @@ HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
 RUN addgroup appgroup && \
     adduser --disabled-password --gecos "" --ingroup appgroup appuser
 
+# Set the user for subsequent commands
 USER appuser
 
 # Set the user for subsequent commands
