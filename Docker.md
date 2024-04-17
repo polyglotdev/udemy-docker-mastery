@@ -291,3 +291,15 @@ If you need to specify a driver on your volume you can create it ahead of time i
 - Compose YAML format as it's own versions
 - `docker-compose.yml` file is a YAML file that defines how Docker containers should behave in production
 - With docker directly in prod with Swarm
+
+## Things you need in a `docker-compose.yml` file
+
+1. Version
+2. Services
+   1. servicename
+      1. image: optional
+      2. ports: optional
+      3. environment variables: optional
+      4. volumes: optional
+3. Networks
+4. Volumes
