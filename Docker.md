@@ -319,3 +319,6 @@ services:
     networks:
       - networkname
 ```
+
+- docker-compose is not a production-grade tool, but it is great for development and testing.
+- comes with most installs besides linux
