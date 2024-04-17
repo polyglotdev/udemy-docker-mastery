@@ -231,3 +231,11 @@ If no tag is specified during pull, Docker defaults to `latest`, which can lead 
 ### Tags and the Latest Pitfall
 
 A common pitfall in using Docker tags is over-reliance on the `latest` tag. Since `latest` can refer to whatever was last pushed to the "latest" tag in the repository, it may not actually represent the most current version of the application. It's considered best practice in production environments to use specific, versioned tags to avoid unexpected changes.
+
+## Persistent Data: Volumes
+
+- defining the problem of persistent data
+- key concepts with containers: immutable, ephemeral
+- persistent data: databases, files, etc
+- Bind mounts
+- Assignments
