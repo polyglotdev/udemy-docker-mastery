@@ -97,3 +97,10 @@ docker container run -p 80:80 --name webhost -d nginx
 - Containers should use FQDN (Fully Qualified Domain Name) to talk to each other
 - Its too dynamic to try and manage IPs for containers
 - Docker daemon has a built-in DNS server for containers on the same network
+
+## Assignment Requirement: CLI App Testing
+
+- Check curl version in ubuntu:14.04 and centos:7
+- ensure curl is installed on latest version for that distro
+- `docker run --rm -it ubuntu bash -c "apt-get update && apt-get install -y curl && curl --version"`
+- `docker run --rm -it centos:7 /bin/bash -c "yum update -y && yum install -y curl && curl --version"`
