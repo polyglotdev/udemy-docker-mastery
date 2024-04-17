@@ -328,3 +328,21 @@ services:
 - compose can build your custom images
 - `docker-compose up --build` will build the images before starting the containers if not found in the cache
 - Great for complex builds that have lots of vars or build args
+
+## Containers Everywhere = New Problems
+
+- How do we automate container lifecycle?
+- How can we easily scale out/in/up/down?
+- How can we ensure container are recreated if they fail?
+- How do we replace containers without downtime (blue/green deploy)?
+- How can we share environment variables and secrets in a secure way?
+- How can we manage networking?
+- How can we monitor the health of our containers?
+
+## Swarm Mode: Built-In Orchestration
+
+- Swarm Mode is clustering solution built inside Docker
+- Not related to Swarm "classic" for pre-1.12 versions
+- Added in 1.12, 2016 via SwarmKit toolkit
+- Enhanced in 1.13, 2017 via Stacks and Secrets
+-
