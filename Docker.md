@@ -138,3 +138,22 @@ docker run -d --network elasticsearch --name elasticsearch1 --network-alias sear
 docker run -d --network elasticsearch --name elasticsearch2 --network-alias search elasticsearch
 docker run --rm --network elasticsearch alpine nslookup search
 ```
+
+## Container Images
+
+## This Section
+
+- all about images
+- what is an image
+- Docker Hub registry
+- Managing our own local image
+- Build our own image
+
+## What is an Image and what it is not?
+
+- app binaries and dependencies
+- metadata about the image data and how to run the image
+- Official definition: An image is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
+- Not complete OS. No kernel, kernel modules (e.g. drivers): The host provides the kernel, and modules, and the container runs on that kernel
+- Small as one file like golang static binary
+- Big as Ubuntu distro with apt, apache, php, and more installed
