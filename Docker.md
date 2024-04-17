@@ -249,3 +249,9 @@ A common pitfall in using Docker tags is over-reliance on the `latest` tag. Sinc
 - Two ways: Volumes and Bind Mounts
 - Volumes: make special location outside of container UFS
 - Bind Mounts: link container path to host path
+
+## Persistent Data: Volumes Walkthrough
+
+- `docker container run -d --name psql -e POSTGRES_PASSWORD=pass123 postgres`
+- `docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -p 3308:3306 -v mysql-db:/var/lib/mysql mysql`
+- `docker inspect mysql | jq '.[].Mounts'`
