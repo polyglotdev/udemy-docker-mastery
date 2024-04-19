@@ -364,3 +364,11 @@ docker swarm join --token SWMTKN-1-3dq7w2u5ij8agdean54br3olh5lrbx6uxsrdiaqc2ew5u
   - Replicates logs amongst Managers via mutual TLS in "control plane"
 
 > When you are looking at the replicas in the swarm the first number represents how many are actually running and the second number represents how many are desired.
+
+## Overlay Multi-Host Networking
+
+- Just choose `--driver overlay` when creating
+- For container-to-container traffic inside a single Swarm
+- Optional IPSec (AES) encryption for security
+- Each service can be connected to multiple networks
+  - "Frontend" network, "Backend" network
