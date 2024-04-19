@@ -362,3 +362,5 @@ docker swarm join --token SWMTKN-1-3dq7w2u5ij8agdean54br3olh5lrbx6uxsrdiaqc2ew5u
   - Encrypted by default on disk (1.13+)
   - No Need for another keu/value system to hold orchestration state/secrets
   - Replicates logs amongst Managers via mutual TLS in "control plane"
+
+> When you are looking at the replicas in the swarm the first number represents how many are actually running and the second number represents how many are desired.
