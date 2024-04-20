@@ -385,6 +385,58 @@ docker swarm join --token SWMTKN-1-3dq7w2u5ij8agdean54br3olh5lrbx6uxsrdiaqc2ew5u
 
 ## Kubernetes
 
+Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
+
+The name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation results from counting the eight letters between the "K" and the "s". Google open-sourced the Kubernetes project in 2014. Kubernetes combines over 15 years of Google's experience running production workloads at scale with best-of-breed ideas and practices from the community.
+
+## Cluster Architecture
+
+![Kubernetes cluster architecture](image.png)
+
+Kubernetes runs your workload by **placing containers into Pods to run on Nodes**. A node may be a virtual or physical machine, depending on the cluster. Each node is managed by the control plane and contains the services necessary to run Pods.
+
+Typically you have several nodes in a cluster; in a learning or resource-limited environment, you might have only one node.
+
+The components on a node include the `kubelet`, a container runtime, and the kube-proxy.
+
+### Management
+
+There are two main ways to have Nodes added to the API server:
+
+1. The `kubelet` on a node self-registers to the control plane.
+2. You can manually add a Node object to the API server.
+
+After you create a Node object, or the kubelet on a node self-registers, the control plane checks whether the new Node object is valid. For example, if you try to create a Node from the following JSON manifest:
+
+```json
+{
+  "kind": "Node",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "10.240.79.157",
+    "labels": {
+      "name": "my-first-k8s-node"
+    }
+  }
+}
+```
+
+Kubernetes creates a Node object internally (the representation). Kubernetes checks that a kubelet has registered to the API server that matches the metadata.name field of the Node. If the node is healthy (i.e. all necessary services are running), then it is eligible to run a Pod. Otherwise, that node is ignored for any cluster activity until it becomes healthy.
+
+> 🗒️ Kubernetes keeps the object for the invalid Node and continues checking to see whether it becomes healthy
+> You, or a controller, must explicitly delete the Node object to stop that health checking.
+
+The name of a Node object must be a valid DNS subdomain name.
+
+## Node name uniqueness
+
+The name identifies a Node. Two Nodes cannot have the same name at the same time. Kubernetes also assumes that a resource with the same name is the same object. In case of a Node, it is implicitly assumed that an instance using the same name will have the same state (e.g. network settings, root disk contents) and attributes like node labels. This may lead to inconsistencies if an instance was modified without changing its name. If the Node needs to be replaced or updated significantly, the existing Node object needs to be removed from API server first and re-added after the update.
+
+
+
+
+
+
 - Open-source container orchestration platform
 - Originally designed by Google, now maintained by CNCF(Cloud Native Computing Foundation)
 - Uses declarative configuration
@@ -715,3 +767,24 @@ In this example:
 - A service is a stable endpoint to connect to "something"(pods are an example)
 
 ## Namespaces
+
+In Kubernetes, a namespace is a logical division within a Kubernetes cluster that is used to separate and organize resources. Namespaces provide a scope for names, allowing you to partition cluster resources into multiple logically named groups. This is particularly useful in environments with many users spread across multiple teams or projects, as namespaces help avoid naming collisions for resources such as pods, services, and deployments.
+
+### Key Points About Kubernetes Namespaces
+
+1. Resource Management: Namespaces are designed to help manage resources in a multi-user environment. Different teams or projects can use the same cluster without interfering with each other, as they operate within separate namespaces.
+2. Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called namespaces.Namespaces are a way to divide cluster resources between multiple users. They are often used to create a multi-tenant environment that provides isolation between the tenants (i.e., different users or teams). Kubernetes also uses namespaces to manage security and access control. You can assign permissions and roles at the namespace level using Role-Based Access Control (RBAC), effectively restricting what users can see and do within their assigned namespaces.
+3. Resource Quotas and Limits: Administrators can use namespaces to allocate resources like memory and CPU to specific teams or projects. This is done using Resource Quotas, which limit the total amount of resources a namespace can consume, ensuring that it does not impact other namespaces in the cluster.
+4. Default and System Namespaces: When you install Kubernetes, it comes with several default namespaces:
+    - `default`: The default namespace for objects with no other namespace specified.
+    - `kube-system`: The namespace for objects created by the Kubernetes system.
+    - `kube-public`: The namespace for objects that need to be accessible by all users.
+
+### What are control plane pods?
+- `etcd`: is our key-value store for all cluster data
+- `kube-apiserver`: is the front end for the Kubernetes control plane
+- `kube-controller-manager`: watches the shared state of the cluster through the control plane
+- `kube-scheduler`: watches for newly created pods with no assigned node and selects a node for them to run on
+- `kube-proxy`: is the (per-node) component managing port mappings in the network overlay
+- `ready` column shows the number of containers in each pod
+- `<net name>` is the optional per-mod component managing the network overlay
