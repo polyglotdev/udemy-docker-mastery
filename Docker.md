@@ -709,3 +709,9 @@ In this example:
 - `kubectl explain` can be used to explore the available fields, subfields, and possible values for each resource type.
 - It is a valuable resource for learning about Kubernetes resources and how to configure them effectively.
 - `kubectl explain` and `kubectl api-resources` are performing introspection because they communicate with the API server and obtain the exact details of the resources and their attributes.
+
+## More `get` commands: Services
+
+- A service is a stable endpoint to connect to "something"(pods are an example)
+
+## Namespaces
