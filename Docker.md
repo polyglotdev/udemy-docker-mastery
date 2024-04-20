@@ -575,3 +575,7 @@ nodes:
 
 Both `jq` and `yq` are invaluable tools for scripting in environments where JSON or YAML configurations are prevalent (such as Kubernetes). They allow for precise querying and manipulation of structured data, making them ideal for automated scripts and systems administration tasks.
 
+## kubectl describe
+
+- `kubectl describe` is a powerful command in Kubernetes that provides detailed information about various Kubernetes resources, such as pods, services, deployments, and more.
+- To use the command, you need to add `node/nodename` like the following `kubectl describe node/node-name`. You can also use `kubectl describe node nodename` to get the same information.
