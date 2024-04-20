@@ -579,3 +579,133 @@ Both `jq` and `yq` are invaluable tools for scripting in environments where JSON
 
 - `kubectl describe` is a powerful command in Kubernetes that provides detailed information about various Kubernetes resources, such as pods, services, deployments, and more.
 - To use the command, you need to add `node/nodename` like the following `kubectl describe node/node-name`. You can also use `kubectl describe node nodename` to get the same information.
+
+## `kubectl api-resources`
+
+```bash
+➜ kubectl api-resources
+NAME                              SHORTNAMES   APIVERSION                             NAMESPACED   KIND
+bindings                                       v1                                     true         Binding
+componentstatuses                 cs           v1                                     false        ComponentStatus
+configmaps                        cm           v1                                     true         ConfigMap
+endpoints                         ep           v1                                     true         Endpoints
+events                            ev           v1                                     true         Event
+limitranges                       limits       v1                                     true         LimitRange
+namespaces                        ns           v1                                     false        Namespace
+nodes                             no           v1                                     false        Node
+persistentvolumeclaims            pvc          v1                                     true         PersistentVolumeClaim
+persistentvolumes                 pv           v1                                     false        PersistentVolume
+pods                              po           v1                                     true         Pod
+podtemplates                                   v1                                     true         PodTemplate
+replicationcontrollers            rc           v1                                     true         ReplicationController
+resourcequotas                    quota        v1                                     true         ResourceQuota
+secrets                                        v1                                     true         Secret
+serviceaccounts                   sa           v1                                     true         ServiceAccount
+services                          svc          v1                                     true         Service
+mutatingwebhookconfigurations                  admissionregistration.k8s.io/v1        false        MutatingWebhookConfiguration
+validatingwebhookconfigurations                admissionregistration.k8s.io/v1        false        ValidatingWebhookConfiguration
+customresourcedefinitions         crd,crds     apiextensions.k8s.io/v1                false        CustomResourceDefinition
+apiservices                                    apiregistration.k8s.io/v1              false        APIService
+controllerrevisions                            apps/v1                                true         ControllerRevision
+daemonsets                        ds           apps/v1                                true         DaemonSet
+deployments                       deploy       apps/v1                                true         Deployment
+replicasets                       rs           apps/v1                                true         ReplicaSet
+statefulsets                      sts          apps/v1                                true         StatefulSet
+selfsubjectreviews                             authentication.k8s.io/v1               false        SelfSubjectReview
+tokenreviews                                   authentication.k8s.io/v1               false        TokenReview
+localsubjectaccessreviews                      authorization.k8s.io/v1                true         LocalSubjectAccessReview
+selfsubjectaccessreviews                       authorization.k8s.io/v1                false        SelfSubjectAccessReview
+selfsubjectrulesreviews                        authorization.k8s.io/v1                false        SelfSubjectRulesReview
+subjectaccessreviews                           authorization.k8s.io/v1                false        SubjectAccessReview
+horizontalpodautoscalers          hpa          autoscaling/v2                         true         HorizontalPodAutoscaler
+cronjobs                          cj           batch/v1                               true         CronJob
+jobs                                           batch/v1                               true         Job
+certificatesigningrequests        csr          certificates.k8s.io/v1                 false        CertificateSigningRequest
+leases                                         coordination.k8s.io/v1                 true         Lease
+bgpconfigurations                              crd.projectcalico.org/v1               false        BGPConfiguration
+bgppeers                                       crd.projectcalico.org/v1               false        BGPPeer
+blockaffinities                                crd.projectcalico.org/v1               false        BlockAffinity
+caliconodestatuses                             crd.projectcalico.org/v1               false        CalicoNodeStatus
+clusterinformations                            crd.projectcalico.org/v1               false        ClusterInformation
+felixconfigurations                            crd.projectcalico.org/v1               false        FelixConfiguration
+globalnetworkpolicies                          crd.projectcalico.org/v1               false        GlobalNetworkPolicy
+globalnetworksets                              crd.projectcalico.org/v1               false        GlobalNetworkSet
+hostendpoints                                  crd.projectcalico.org/v1               false        HostEndpoint
+ipamblocks                                     crd.projectcalico.org/v1               false        IPAMBlock
+ipamconfigs                                    crd.projectcalico.org/v1               false        IPAMConfig
+ipamhandles                                    crd.projectcalico.org/v1               false        IPAMHandle
+ippools                                        crd.projectcalico.org/v1               false        IPPool
+ipreservations                                 crd.projectcalico.org/v1               false        IPReservation
+kubecontrollersconfigurations                  crd.projectcalico.org/v1               false        KubeControllersConfiguration
+networkpolicies                                crd.projectcalico.org/v1               true         NetworkPolicy
+networksets                                    crd.projectcalico.org/v1               true         NetworkSet
+endpointslices                                 discovery.k8s.io/v1                    true         EndpointSlice
+events                            ev           events.k8s.io/v1                       true         Event
+flowschemas                                    flowcontrol.apiserver.k8s.io/v1beta3   false        FlowSchema
+prioritylevelconfigurations                    flowcontrol.apiserver.k8s.io/v1beta3   false        PriorityLevelConfiguration
+ingressclasses                                 networking.k8s.io/v1                   false        IngressClass
+ingresses                         ing          networking.k8s.io/v1                   true         Ingress
+networkpolicies                   netpol       networking.k8s.io/v1                   true         NetworkPolicy
+runtimeclasses                                 node.k8s.io/v1                         false        RuntimeClass
+poddisruptionbudgets              pdb          policy/v1                              true         PodDisruptionBudget
+clusterrolebindings                            rbac.authorization.k8s.io/v1           false        ClusterRoleBinding
+clusterroles                                   rbac.authorization.k8s.io/v1           false        ClusterRole
+rolebindings                                   rbac.authorization.k8s.io/v1           true         RoleBinding
+roles                                          rbac.authorization.k8s.io/v1           true         Role
+priorityclasses                   pc           scheduling.k8s.io/v1                   false        PriorityClass
+csidrivers                                     storage.k8s.io/v1                      false        CSIDriver
+csinodes                                       storage.k8s.io/v1                      false        CSINode
+csistoragecapacities                           storage.k8s.io/v1                      true         CSIStorageCapacity
+storageclasses                    sc           storage.k8s.io/v1                      false        StorageClass
+volumeattachments                              storage.k8s.io/v1                      false        VolumeAttachment
+```
+
+So above you can see things like the shortnames, the api version, whether it is namespaced or not, and the kind of resource it is. We can list the resources types with `kubectl api-resources`.
+
+- We can view the definition for a resource type with: `kubectl explain pod`
+- We can view the definition of a field in a resource type with: `kubectl explain pod.spec.containers`
+- Or get the list of all fields and subfields with: `kubectl explain pod --recursive`
+
+## WTF is `kind`
+
+1. `kind` as a Kubernetes Object Field
+
+In Kubernetes, every object definition includes a `kind` field in its `yaml` or `json` representation. The `kind` field specifies the type of object being defined. For example, a `kind` value of `Pod` indicates that the object is a pod definition.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+```
+
+In this example:
+
+- `kind: Deployment`: This tells Kubernetes that the resource type you are defining is a Deployment.
+
+2. `kind` as a Kubernetes Cluster tool
+
+**kind** (Kubernetes IN Docker) is a tool designed to run local Kubernetes clusters using Docker container "nodes." kind is primarily used for testing Kubernetes itself, but it is also suitable for development and CI environments. It is not recommended for production use. The main appeal of kind is that it is lightweight, quick to set up, and runs on most hardware that supports Docker.
+
+## Introspection vs documentation
+
+- `kubectl explain` is a powerful tool for understanding Kubernetes resources and their fields.
+- It provides detailed information about the structure and attributes of Kubernetes objects.
+- `kubectl explain` can be used to explore the available fields, subfields, and possible values for each resource type.
+- It is a valuable resource for learning about Kubernetes resources and how to configure them effectively.
+- `kubectl explain` and `kubectl api-resources` are performing introspection because they communicate with the API server and obtain the exact details of the resources and their attributes.
