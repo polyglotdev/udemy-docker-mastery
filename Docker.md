@@ -305,13 +305,13 @@ If you need to specify a driver on your volume you can create it ahead of time i
 4. Volumes
 
 ```yml
-version: "3"
+version: '3'
 
 services:
   servicename:
     image: imagename
     ports:
-      - "80:80"
+      - '80:80'
     environment:
       - key: value
     volumes:
@@ -372,3 +372,206 @@ docker swarm join --token SWMTKN-1-3dq7w2u5ij8agdean54br3olh5lrbx6uxsrdiaqc2ew5u
 - Optional IPSec (AES) encryption for security
 - Each service can be connected to multiple networks
   - "Frontend" network, "Backend" network
+
+## Routing Mesh
+
+- Automatically routes incoming requests to proper service
+- Routers ingress (incoming) packets for a Service to proper Task
+- Uses IPVS from Linux Kernel
+- Load balances swarm Services across their Tasks
+- Two ways this works:
+  - Container-to-container in a overlay network(VIP)
+  - External traffic incoming to published ports (all nodes listen)
+
+## Kubernetes
+
+- Open-source container orchestration platform
+- Originally designed by Google, now maintained by CNCF(Cloud Native Computing Foundation)
+- Uses declarative configuration
+- Self-healing
+- Scaling
+- Rolling updates
+
+## Kubernetes Concepts
+
+The command you've shared is intended to retrieve information about the nodes in a Kubernetes cluster and format the output using the `jq` tool. Here's a breakdown of the command and its components:
+
+```bash
+kubectl get nodes -o json | jq ".items[] | {name: .metadata.name} + .status.capacity"
+```
+
+### Breakdown of the Command:
+
+1. **`kubectl get nodes -o json`**:
+
+- `kubectl` is the command line tool for interacting with Kubernetes clusters.
+- `get nodes` retrieves information about all the nodes (physical or virtual machines) in the cluster.
+- `-o json` formats the output of the command as JSON. This is useful for piping into `jq`, which can manipulate JSON data effectively.
+
+2. **`| jq ".items[] | {name: .metadata.name} + .status.capacity"`**:
+
+- `|` is the pipe operator in Unix-like systems that passes the output of the previous command as input to the following command.
+- `jq` is a powerful tool for parsing and manipulating JSON data from the command line.
+- `".items[]"` takes each item in the "items" array from the JSON output. Each item represents a node in the Kubernetes cluster.
+- `|` (within the `jq` command) is a filter that pipes the output of one `jq` expression into another.
+- `{name: .metadata.name}` creates a new JSON object for each node with a single key (`name`) that is populated with the node's name from the `.metadata.name` field of the input JSON.
+- `+ .status.capacity` adds all key-value pairs from the `.status.capacity` field of the input JSON to the aforementioned object. The `capacity` object typically includes data such as CPU resources, memory, and possibly extended resources like GPUs.
+
+### Example Output:
+
+Assuming you have a cluster with nodes that have various capacities, the command might produce output like this:
+
+```json
+{
+  "name": "node1",
+  "cpu": "4",
+  "memory": "16Gi",
+  "pods": "110"
+}
+{
+  "name": "node2",
+  "cpu": "8",
+  "memory": "32Gi",
+  "pods": "110"
+}
+```
+
+This output provides a clear, concise view of each node's name and its capacity regarding CPU, memory, and maximum pod allocations.
+
+### Usage Scenario:
+
+This command is particularly useful for sysadmins and Kubernetes operators who need a quick and readable overview of node capacities within their clusters. It helps in scenarios where decisions regarding resource management and workload scheduling are needed.
+
+### Introduction to `jq`
+
+`jq` is a powerful command-line JSON processor. It allows you to slice, filter, map, and transform structured data with the same ease that `sed`, `awk`, `grep`, and friends let you play with text.
+
+#### Basic `jq` Syntax:
+
+- `.`: Represents the root object/entire input.
+- `[]`: Access elements in an array or build new arrays.
+- `{}`: Build new JSON objects.
+- `|`: Pipe output from one filter to another.
+
+### Example JSON Data
+
+Let's consider a JSON that describes some nodes in a network:
+
+```json
+{
+  "nodes": [
+    {
+      "name": "node1",
+      "ip": "192.168.1.1",
+      "roles": ["master", "worker"]
+    },
+    {
+      "name": "node2",
+      "ip": "192.168.1.2",
+      "roles": ["worker"]
+    }
+  ]
+}
+```
+
+#### Basic Queries
+
+1. **Print the whole JSON**:
+
+  ```bash
+  jq '.' data.json
+  ```
+
+2. **Print all nodes**:
+
+  ```bash
+  jq '.nodes[]' data.json
+  ```
+
+3. **Print names of all nodes**:
+  ```bash
+  jq '.nodes[].name' data.json
+  ```
+
+### Transformations with `jq`
+
+1. **Map Format**: Creating a new JSON structure.
+
+  ```bash
+  jq '.nodes[] | {node_name: .name, node_ip: .ip}' data.json
+  ```
+
+  Output:
+
+  ```json
+  {"node_name": "node1", "node_ip": "192.168.1.1"}
+  {"node_name": "node2", "node_ip": "192.168.1.2"}
+  ```
+
+2. **Filter by Role**: Only get workers.
+  ```bash
+  jq '.nodes[] | select(.roles[] == "worker")' data.json
+  ```
+
+### Introduction to `yq`
+
+While `jq` is used for JSON, `yq` is a lightweight and portable command-line YAML processor, which is similar in spirit to `jq`.
+
+#### Basic `yq` Syntax:
+
+- Similar to `jq` but adapted for YAML data.
+- Commands and operations are analogous to those in `jq`.
+
+### Example YAML Data
+
+Suppose you have a YAML file named `data.yaml`:
+
+```yaml
+nodes:
+  - name: node1
+    ip: 192.168.1.1
+    roles:
+      - master
+      - worker
+  - name: node2
+    ip: 192.168.1.2
+    roles:
+      - worker
+```
+
+#### Basic Queries with `yq`
+
+1. **Print the whole YAML**:
+
+  ```bash
+  yq e '.' data.yaml
+  ```
+
+2. **Print all nodes**:
+
+  ```bash
+  yq e '.nodes[]' data.yaml
+  ```
+
+3. **Print names of all nodes**:
+  ```bash
+  yq e '.nodes[].name' data.yaml
+  ```
+
+### Transformations with `yq`
+
+1. **Map Format**: Creating a new YAML structure.
+
+  ```bash
+  yq e '.nodes[] | {"node_name": .name, "node_ip": .ip}' data.yaml
+  ```
+
+2. **Filter by Role**: Only get workers.
+  ```bash
+  yq e '.nodes[] | select(.roles[] == "worker")' data.yaml
+  ```
+
+### Summary
+
+Both `jq` and `yq` are invaluable tools for scripting in environments where JSON or YAML configurations are prevalent (such as Kubernetes). They allow for precise querying and manipulation of structured data, making them ideal for automated scripts and systems administration tasks.
+
